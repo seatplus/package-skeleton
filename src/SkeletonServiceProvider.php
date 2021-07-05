@@ -2,9 +2,7 @@
 
 namespace VendorName\Skeleton;
 
-
 use Illuminate\Support\ServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
 
 class SkeletonServiceProvider extends ServiceProvider
 {

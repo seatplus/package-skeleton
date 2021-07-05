@@ -23,7 +23,7 @@ class TestCase extends Orchestra
     {
         return [
             SkeletonServiceProvider::class,
-            AuthenticationServiceProvider::class
+            AuthenticationServiceProvider::class,
         ];
     }
 
@@ -34,9 +34,9 @@ class TestCase extends Orchestra
         // Use memory SQLite, cleans it self up
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
 
         config(['app.debug' => true]);
@@ -78,6 +78,4 @@ class TestCase extends Orchestra
         //$this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->artisan('migrate', ['--database' => 'testbench']);
     }
-
-
 }

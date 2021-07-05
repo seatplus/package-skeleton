@@ -3,7 +3,6 @@
 
 namespace VendorName\Skeleton\Tests\Stubs;
 
-
 use Orchestra\Testbench\Http\Middleware\RedirectIfAuthenticated;
 use Seatplus\Web\Http\Middleware\Authenticate;
 
@@ -17,8 +16,7 @@ class Kernel extends \Orchestra\Testbench\Http\Kernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'  => Authenticate::class,
+        'auth' => Authenticate::class,
         'guest' => RedirectIfAuthenticated::class,
     ];
-
 }
