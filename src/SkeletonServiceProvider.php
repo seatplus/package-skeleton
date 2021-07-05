@@ -19,7 +19,6 @@ class SkeletonServiceProvider extends ServiceProvider
         // Add routes
         /*$this->loadRoutesFrom(__DIR__ . '/Http/routes.php');*/
 
-
         //Add Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
 
