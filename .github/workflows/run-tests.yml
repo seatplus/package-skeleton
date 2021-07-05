@@ -1,47 +1,35 @@
-name: run-tests
+name: Laravel
 
 on:
   push:
-    branches: [main]
+    branches: [ main, dev ]
   pull_request:
-    branches: [main]
+    branches: [ main, dev ]
 
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        php: [8.0]
-        laravel: [8.*]
-        stability: [prefer-lowest, prefer-stable]
-        include:
-          - laravel: 8.*
-            testbench: ^6.6
+  laravel:
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@v2
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
         with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
-          coverage: none
-
-      - name: Setup problem matchers
-        run: |
-          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
-      - name: Install dependencies
-        run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
-
-      - name: Execute tests
-        run: vendor/bin/phpunit
+          php-version: '8.0'
+          extensions: mbstring, dom, fileinfo
+          coverage: xdebug #optional
+      - name: Redis Server in GitHub Actions
+        uses: supercharge/redis-github-action@1.1.0
+        with:
+          # Redis version to use
+          redis-version: 6 # optional, default is latest, was 5
+      - name: Install Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+#      - name: Test & publish code coverage
+#        uses: paambaati/codeclimate-action@v2.6.0
+#        env:
+#          CC_TEST_REPORTER_ID: fe3081a529c6c268974ebebb2f0137c3b3f6351cdc8a2712d8eb86ec78f7bf22
+#        with:
+#          coverageCommand: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+#          debug: false

@@ -2,24 +2,55 @@
 
 namespace VendorName\Skeleton;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+
+use Illuminate\Support\ServiceProvider;
 use VendorName\Skeleton\Commands\SkeletonCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class SkeletonServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    /**
+     * Register bindings in the container.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Publish the JS & CSS,
+        $this->addPublications();
+
+        // Add routes
+        /*$this->loadRoutesFrom(__DIR__ . '/Http/routes.php');*/
+
+
+        //Add Migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
+
+        // Add translations
+        //$this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'web');
+    }
+
+    public function register()
+    {
+        $this->mergeConfigurations();
+    }
+
+    private function mergeConfigurations()
+    {
+
+        /*$this->mergeConfigFrom(
+            __DIR__ . '/config/package.permissions.php', 'web.permissions'
+        );*/
+    }
+
+    private function addPublications()
     {
         /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
+         * to publish assets one can run:
+         * php artisan vendor:publish --tag=srp --force
+         * or use Laravel Mix to copy the folder to public repo of core.
          */
-        $package
-            ->name('skeleton')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+        /*$this->publishes([
+            __DIR__ . '/resources/js' => resource_path('js'),
+        ], 'srp');*/
     }
 }
