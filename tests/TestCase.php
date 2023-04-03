@@ -68,14 +68,4 @@ class TestCase extends Orchestra
     {
         //$app->singleton('Illuminate\Contracts\Http\Kernel', Kernel::class);
     }
-
-    /**
-     * @param \Illuminate\Foundation\Application  $app
-     */
-    private function setupDatabase($app)
-    {
-        // Path to our migrations to load
-        //$this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-        $this->artisan('migrate', ['--database' => 'testbench']);
-    }
 }
