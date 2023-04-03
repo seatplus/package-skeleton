@@ -33,7 +33,6 @@ class SkeletonServiceProvider extends ServiceProvider
 
     private function mergeConfigurations()
     {
-
         /*$this->mergeConfigFrom(
             __DIR__ . '/config/package.permissions.php', 'web.permissions'
         );*/
