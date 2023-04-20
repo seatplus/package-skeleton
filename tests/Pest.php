@@ -11,7 +11,6 @@
 |
 */
 
-
 use VendorName\Skeleton\Tests\TestCase;
 
 uses(TestCase::class)
