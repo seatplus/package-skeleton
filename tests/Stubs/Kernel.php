@@ -1,6 +1,5 @@
 <?php
 
-
 namespace VendorName\Skeleton\Tests\Stubs;
 
 use Orchestra\Testbench\Http\Middleware\RedirectIfAuthenticated;
